@@ -33,8 +33,15 @@ fi
 
 STAGE="Build"
 log "Building image"
-docker build -t webDiplomacyDev $SCRIPT_DIR
+docker build -t webdiplomacydev $SCRIPT_DIR
 
 log "Starting server"
+if [ -z ${WEBDIP_PORT+x} ] ; then
+  WEBDIP_PORT=80
+fi
+
 trap warnings 0
-docker run -p 80:80 -t -i -v "$SCRIPT_DIR"/webDiplomacy:/var/www/example.com/public_html webDiplomacyDev
+docker run -p $WEBDIP_PORT:80  -t -i \
+  -v "$SCRIPT_DIR"/webDiplomacy:/var/www/example.com/public_html \
+  -e WEBDIP_PORT=$WEBDIP_PORT \
+  webdiplomacydev
