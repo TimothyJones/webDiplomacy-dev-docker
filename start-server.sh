@@ -14,7 +14,7 @@ STAGE="Initialising"
 if [ -z "$(ls "$SCRIPT_DIR"/webDiplomacy)" ] ; then
   warn "Missing source directory for webDiplomacy; running git submodule commands"
   git submodule init
-  git submodule update
+  git submodule update --remote
 fi
  
 INSTALLED_CONFIG="$SCRIPT_DIR"/webDiplomacy/config.php
