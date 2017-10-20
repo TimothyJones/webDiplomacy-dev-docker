@@ -40,8 +40,8 @@ if [ -z ${WEBDIP_PORT+x} ] ; then
   WEBDIP_PORT=80
 fi
 
-trap warnings 0
-docker run -p $WEBDIP_PORT:80  -t -i \
+trap "log 'Server stopped' ;warnings" 0
+docker run -p $WEBDIP_PORT:80 --rm -t -i \
   -v "$SCRIPT_DIR"/webDiplomacy:/var/www/example.com/public_html \
   -e WEBDIP_PORT=$WEBDIP_PORT \
   webdiplomacydev
